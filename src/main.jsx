@@ -1,11 +1,14 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import { BestCycling } from './BestCycling'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import { BestCycling } from "./BestCycling";
 
-import './index.css'
+import "./index.css";
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <BestCycling />
+    <BrowserRouter>
+      <BestCycling />
+    </BrowserRouter>
   </React.StrictMode>
-)
+);

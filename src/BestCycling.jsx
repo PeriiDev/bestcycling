@@ -1,7 +1,11 @@
+import { AppRouter } from "./router/AppRouter";
+import "./fonts/TextaLight.ttf";
+import { AppProvider } from "./context/AppProvider";
+
 export const BestCycling = () => {
   return (
-    <>
-    <h1>BestCycling</h1>
-    </>
-  )
-}
+    <AppProvider>
+      <AppRouter />
+    </AppProvider>
+  );
+};
