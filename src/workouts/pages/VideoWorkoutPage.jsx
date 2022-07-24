@@ -1,18 +1,18 @@
 import { useEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/system";
 import { Typography, Avatar } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
-import { useDispatch, useSelector } from "react-redux";
-
-import { useNavigate } from "react-router-dom";
-import { getCheckedWorkouts } from "../helpers/getCheckedWorkouts";
+import { getCheckedWorkouts } from "../helpers";
 import { getInstructorById } from "../../profile";
-import { setNextWorkout } from "../../store/slices/userProfile/userProfileSlice";
+import { setNextWorkout } from "../../store/slices/userProfile";
 import { useCounter } from "../../hooks";
 import { Player } from "../components";
 
 export const VideoWorkoutPage = () => {
+  
   const navigate = useNavigate();
   const goBack = () => navigate(-1);
 

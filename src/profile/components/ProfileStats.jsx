@@ -1,5 +1,6 @@
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import PropTypes from "prop-types";
 
 export const ProfileStats = ({ profile }) => {
   const typesStats = ["NIVEL", "CONSTANCIA", "PUNTOS"];
@@ -32,4 +33,8 @@ export const ProfileStats = ({ profile }) => {
       })}
     </Box>
   );
+};
+
+ProfileStats.propTypes = {
+  profile: PropTypes.object.isRequired,
 };

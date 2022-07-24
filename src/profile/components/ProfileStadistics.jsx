@@ -1,5 +1,6 @@
 import { Avatar, Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import PropTypes from "prop-types";
 
 export const ProfileStadistics = ({ profile }) => {
   const valuesStadistics = [
@@ -41,10 +42,14 @@ export const ProfileStadistics = ({ profile }) => {
             >
               {valuesStadistics[i]}
             </Avatar>
-            <Typography paddingTop={1} >{stat}</Typography>
+            <Typography paddingTop={1}>{stat}</Typography>
           </Box>
         );
       })}
     </Box>
   );
+};
+
+ProfileStadistics.propTypes = {
+  profile: PropTypes.object.isRequired,
 };

@@ -9,11 +9,11 @@ import "./index.css";
 import { store } from "./store";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  // <React.StrictMode>
-     <Provider store={store}> 
+  <React.StrictMode>
+    <Provider store={store}>
       <BrowserRouter>
         <BestCycling />
       </BrowserRouter>
-     </Provider> 
-  // </React.StrictMode>
+    </Provider>
+  </React.StrictMode>
 );

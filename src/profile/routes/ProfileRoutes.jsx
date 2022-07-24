@@ -14,9 +14,6 @@ export const ProfileRoutes = () => {
         <Route path="workouts" element={<WorkoutsPage />} />
 
         <Route path="workouts/player" element={<VideoWorkoutPage />} />
-        {/* <Route path="workouts/:id" element={<VideoWorkoutPage />} /> */}
-
-        {/* <Route path="hero/:heroId" element={<HeroPage />} /> */}
 
         <Route path="/" element={<Navigate to="/profile" />} />
       </Routes>

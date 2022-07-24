@@ -8,17 +8,15 @@ export const getDataUserProfile = () => {
         const resp = await fetch('https://bestcycling-public.s3.eu-west-1.amazonaws.com/api-test/db.json');
         const data = await resp.json();
 
-
         const workoutsChecked = new Array(data.training_classes.length).fill(false);
 
-        const workouts = data.training_classes.map( w => {
+        const workouts = data.training_classes.map(workout => {
             return {
-                ...w,
+                ...workout,
                 completed: false,
                 checked: false,
             }
         })
-
 
         dispatch(setUserProfile({
             isLoading: false,

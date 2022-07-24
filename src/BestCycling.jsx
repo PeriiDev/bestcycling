@@ -1,9 +1,9 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { AppRouter } from "./router/AppRouter";
 import "./fonts/TextaLight.ttf";
-import { AppProvider } from "./context/AppProvider";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { getDataUserProfile } from "./store/slices/userProfile/thunks";
+
+import { getDataUserProfile } from "./store/slices/userProfile";
 
 export const BestCycling = () => {
   const dispatch = useDispatch();
@@ -13,8 +13,8 @@ export const BestCycling = () => {
   }, []);
 
   return (
-    // <AppProvider>
+  
     <AppRouter />
-    // </AppProvider>
+
   );
 };

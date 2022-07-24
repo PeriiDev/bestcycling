@@ -1,7 +1,8 @@
+import PropTypes from "prop-types";
 import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
 
-export const Player = ({counter}) => {
+export const Player = ({ counter }) => {
   return (
     <Box
       sx={{
@@ -28,4 +29,8 @@ export const Player = ({counter}) => {
       </Box>
     </Box>
   );
+};
+
+Player.propTypes = {
+  counter: PropTypes.number.isRequired,
 };

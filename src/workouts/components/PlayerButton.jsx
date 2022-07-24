@@ -1,22 +1,14 @@
-import React from "react";
+import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/system";
 import PlayArrowOutlinedIcon from "@mui/icons-material/PlayArrowOutlined";
 import { Typography } from "@mui/material";
-import { useNavigate, createSearchParams } from "react-router-dom";
-
 
 export const PlayerButton = ({ anyWorkoutSelected }) => {
   const navigate = useNavigate();
 
-
   const goToWorkoutPlayer = () => {
-    navigate({
-      pathname: `/workouts/player`,
-    //   search: createSearchParams({
-    //     name: name,
-    //     instructor: instructor,
-    //   }).toString(),
-    });
+    navigate({ pathname: `/workouts/player` });
   };
 
   return (
@@ -59,4 +51,8 @@ export const PlayerButton = ({ anyWorkoutSelected }) => {
       </button>
     </Box>
   );
+};
+
+PlayerButton.propTypes = {
+  anyWorkoutSelected: PropTypes.bool.isRequired,
 };

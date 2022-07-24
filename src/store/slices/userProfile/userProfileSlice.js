@@ -15,18 +15,16 @@ export const userProfileSlice = createSlice({
         },
         setUserProfile: (state, action) => {
             state.isLoading = false;
-            state.profile = action.payload.profile,
-                state.categories = action.payload.categories,
-                state.instructors = action.payload.instructors,
-                state.training_classes = action.payload.training_classes
-            //state.workoutsChecked = action.payload.workoutsChecked
+            state.profile = action.payload.profile;
+            state.categories = action.payload.categories;
+            state.instructors = action.payload.instructors;
+            state.training_classes = action.payload.training_classes;
+
         },
         setCheckedWorkout: (state, action) => {
-            console.log(action.payload)
-            state.training_classes[action.payload].checked = !state.training_classes[action.payload].checked
+            state.training_classes[action.payload].checked = !state.training_classes[action.payload].checked;
         },
         setNextWorkout: (state, action) => {
-            console.log(action.payload)
             state.training_classes.map(c => {
                 if (c.id === action.payload) return c.completed = true;
                 return c;

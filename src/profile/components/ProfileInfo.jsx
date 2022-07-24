@@ -1,6 +1,7 @@
 import { Avatar, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import PropTypes from "prop-types";
 
 export const ProfileInfo = ({ profile }) => {
   return (
@@ -35,4 +36,8 @@ export const ProfileInfo = ({ profile }) => {
       </Box>
     </Box>
   );
+};
+
+ProfileInfo.propTypes = {
+  profile: PropTypes.object.isRequired,
 };

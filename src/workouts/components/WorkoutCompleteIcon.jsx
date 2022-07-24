@@ -1,6 +1,7 @@
+import PropTypes from "prop-types";
 import { Box } from "@mui/system";
 
-export const WorkoutCompleteIcon = ({title}) => {
+export const WorkoutCompleteIcon = ({ title }) => {
   return (
     <Box
       sx={{
@@ -22,4 +23,8 @@ export const WorkoutCompleteIcon = ({title}) => {
       {title}
     </Box>
   );
+};
+
+WorkoutCompleteIcon.propTypes = {
+  title: PropTypes.string.isRequired,
 };

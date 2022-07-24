@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 import { Box } from "@mui/system";
 import { Button, Typography, Grid } from "@mui/material";
 
@@ -90,4 +91,9 @@ export const ProfileWorkouts = ({ workouts, instructors }) => {
       </Grid>
     </Box>
   );
+};
+
+ProfileWorkouts.propTypes = {
+  workouts: PropTypes.array.isRequired,
+  instructors: PropTypes.array.isRequired,
 };

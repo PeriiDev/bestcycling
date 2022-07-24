@@ -1,41 +1,21 @@
-import { useContext, useEffect, useState } from "react";
-import { useNavigate, createSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Typography, Grid, Checkbox } from "@mui/material";
 import { Box } from "@mui/system";
 import LensIcon from "@mui/icons-material/Lens";
 
-import { useDispatch, useSelector } from "react-redux";
-
-import { AppContext } from "../../context/AppContext";
 import { getInstructorById } from "../../profile";
 import { getWorksoutDay } from "../helpers";
-import { WorkoutCompleteIcon } from "../components";
-import { useForm } from "../../hooks";
-import { setCheckedWorkout } from "../../store/slices/userProfile/userProfileSlice";
-import { PlayerButton } from "../components/PlayerButton";
+import { BorderTriangle, WorkoutCompleteIcon, PlayerButton } from "../components";
+import { setCheckedWorkout } from "../../store/slices/userProfile";
 
 export const WorkoutsPage = () => {
   const dispatch = useDispatch();
-  const { profile, instructors, training_classes } = useSelector(
+  const { instructors, training_classes } = useSelector(
     (state) => state.userProfile
   );
 
   const [anyWorkoutSelected, setAnyWorkoutSelected] = useState(false);
-
-  const {} = useForm({});
-
-  // const navigate = useNavigate();
-  // const goToWorkoutPlayer = (instructor, name) => {
-  //   navigate({
-  //     pathname: `/workouts/player`,
-  //     search: createSearchParams({
-  //       name: name,
-  //       instructor: instructor,
-  //     }).toString(),
-  //   });
-  // };
-
-
 
   const onSelectWorkout = (index) => {
     dispatch(setCheckedWorkout(index));
@@ -43,48 +23,11 @@ export const WorkoutsPage = () => {
 
   useEffect(() => {
     setAnyWorkoutSelected(training_classes.some((t) => t.checked === true));
-    console.log(`Algun video seleccionado: ${anyWorkoutSelected}`);
   }, [training_classes]);
 
   return (
     <>
-    <PlayerButton anyWorkoutSelected={anyWorkoutSelected}/>
-      {/* <Box
-        sx={{
-          display: "flex",
-          justifyContent: "end",
-          paddingTop: 3,
-          paddingRight: 6,
-        }}
-      >
-        <button
-          onClick={() => console.log("asdasd")}
-          disabled={!anyWorkoutSelected}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            backgroundColor: "#222222",
-            padding: 10,
-          }}
-        >
-          <PlayArrowOutlinedIcon
-            sx={{
-              marginRight: 1,
-              fontSize: 30,
-              color: !anyWorkoutSelected ? "#d5a87a" : "orange",
-            }}
-          />
-          <Typography
-            sx={{
-              fontFamily: "Heavy",
-              fontSize: 18,
-              color: !anyWorkoutSelected ? "#bbb7b7" : "white",
-            }}
-          >
-            REPRODUCIR AUTOMÁTICAMENTE
-          </Typography>
-        </button>
-      </Box> */}
+      <PlayerButton anyWorkoutSelected={anyWorkoutSelected} />
 
       <Grid container sx={{ padding: 4, display: "flex" }}>
         {training_classes.map((workout, index) => {
@@ -118,7 +61,6 @@ export const WorkoutsPage = () => {
                     alignItems: "flex-start",
                   }}
                 >
-                  {/* CHECKBOX */}
                   <Checkbox
                     checked={isChecked}
                     name={workout.id.toString()}
@@ -142,13 +84,10 @@ export const WorkoutsPage = () => {
                   </Box>
                 </Box>
 
-                {workout.completed && <WorkoutCompleteIcon title={"Completado"} />}
-
-                <img
-
-                  src={workout.image}
-                  alt=""
-                />
+                {workout.completed && (
+                  <WorkoutCompleteIcon title={"Completado"} />
+                )}
+                <img src={workout.image} alt="" />
                 <Box
                   sx={{
                     display: "flex",
@@ -183,7 +122,7 @@ export const WorkoutsPage = () => {
                     Duración {duration}'
                   </Typography>
                 </Box>
-                {/* AQUI VA EL TRAINGULO DE COLORES */}
+                <BorderTriangle />
               </Box>
             </Grid>
           );
