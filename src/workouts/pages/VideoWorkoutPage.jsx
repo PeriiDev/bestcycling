@@ -1,20 +1,55 @@
+import { useEffect, useMemo, useState } from "react";
 import { Box } from "@mui/system";
 import { Typography, Avatar } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
-import {
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import { useNavigate } from "react-router-dom";
+import { getCheckedWorkouts } from "../helpers/getCheckedWorkouts";
+import { getInstructorById } from "../../profile";
+import { setNextWorkout } from "../../store/slices/userProfile/userProfileSlice";
+import { useCounter } from "../../hooks";
+import { Player } from "../components";
 
 export const VideoWorkoutPage = () => {
-  const [params] = useSearchParams();
   const navigate = useNavigate();
-
-  const name = params.get("name");
-  const instructor = params.get("instructor");
-
   const goBack = () => navigate(-1);
+
+  const dispatch = useDispatch();
+  const { counter, decrement, resetCounter } = useCounter(5);
+  const [iteration, setIteration] = useState(0);
+
+  const { instructors, training_classes } = useSelector(
+    (state) => state.userProfile
+  );
+
+  const myWorkouts = useMemo(
+    () => getCheckedWorkouts(training_classes),
+    [training_classes]
+  );
+
+  const instructor = useMemo(
+    () => getInstructorById(instructors, myWorkouts[iteration].instructor_id),
+    [training_classes]
+  );
+
+  useEffect(() => {
+    if (counter === 0) {
+      dispatch(setNextWorkout(myWorkouts[iteration].id));
+      setIteration(iteration + 1);
+
+      if (iteration + 1 === myWorkouts.length) {
+        navigate("/workouts", { replace: true });
+      } else {
+        resetCounter();
+        navigate("/workouts/player", { replace: true });
+      }
+    }
+    if (counter > 0) {
+      setTimeout(decrement, 1000);
+    }
+  }, [counter]);
 
   return (
     <>
@@ -46,36 +81,16 @@ export const VideoWorkoutPage = () => {
           }}
         >
           <Typography sx={{ fontFamily: "Heavy", fontSize: 40 }}>
-            {name}
+            {myWorkouts[iteration].name}
           </Typography>
           <Typography sx={{ fontFamily: "Heavy", fontSize: 22 }}>
-            {instructor}
+            {instructor?.name}
           </Typography>
         </Box>
       </Box>
 
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          padding: 6,
-          paddingTop: 0,
-        }}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "100%",
-            height: 600,
-            backgroundColor: "black",
-          }}
-        >
-          <Typography sx={{ fontFamily: "Heavy", fontSize: 200 }}>5</Typography>
-        </Box>
-      </Box>
+      <Player counter={counter} />
+
     </>
   );
 };

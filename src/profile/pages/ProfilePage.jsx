@@ -1,6 +1,5 @@
 import { Box } from "@mui/system";
-import { useContext } from "react";
-import { AppContext } from "../../context/AppContext";
+import { useSelector } from "react-redux";
 
 import {
   ProfileInfo,
@@ -10,9 +9,8 @@ import {
 } from "../components";
 
 export const ProfilePage = () => {
-  const { profile, instructors, training_classes } = useContext(AppContext);
-
-  if (!profile) return;
+  const { profile, instructors, training_classes,  } =
+    useSelector((state) => state.userProfile);
 
   return (
     <>
