@@ -4,7 +4,8 @@ import { setUserProfile, startLoadingUserProfile } from "./userProfileSlice"
 export const getDataUserProfile = () => {
     return async (dispatch, getState) => {
 
-        dispatch(startLoadingUserProfile())
+        dispatch(startLoadingUserProfile());
+        
         const resp = await fetch('https://bestcycling-public.s3.eu-west-1.amazonaws.com/api-test/db.json');
         const data = await resp.json();
 

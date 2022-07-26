@@ -10,19 +10,32 @@ import { getInstructorById } from "../../profile";
 import { setNextWorkout } from "../../store/slices/userProfile";
 import { useCounter } from "../../hooks";
 import { Player } from "../components";
+import {
+  decrementTime,
+  finishedSubscription,
+  refreshSubscription,
+  refreshTime,
+} from "../../store/slices";
 
 export const VideoWorkoutPage = () => {
-  
-  const navigate = useNavigate();
-  const goBack = () => navigate(-1);
-
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const goBack = () => {
+    dispatch(refreshSubscription());
+    navigate(-1);
+  };
+
   const { counter, decrement, resetCounter } = useCounter(5);
   const [iteration, setIteration] = useState(0);
 
+  const { active, auto, time, extra_time } = useSelector(
+    (state) => state.subscription
+  );
   const { instructors, training_classes } = useSelector(
     (state) => state.userProfile
   );
+
+  console.log(extra_time);
 
   const myWorkouts = useMemo(
     () => getCheckedWorkouts(training_classes),
@@ -34,10 +47,25 @@ export const VideoWorkoutPage = () => {
     [training_classes]
   );
 
+  if (!active) return navigate("/subscription");
+
   useEffect(() => {
+    //Decrement one second on my sub
+    if (counter <= 4) {
+      dispatch(decrementTime(1));
+    }
+    if(time === 0 && auto) {
+      dispatch(refreshTime())
+    }
     if (counter === 0) {
+      if (time === 0) {
+        dispatch(finishedSubscription());
+      }
+      //Skip the current video and play next if exists
       dispatch(setNextWorkout(myWorkouts[iteration].id));
       setIteration(iteration + 1);
+
+      dispatch(refreshSubscription());
 
       if (iteration + 1 === myWorkouts.length) {
         navigate("/workouts", { replace: true });
@@ -90,7 +118,6 @@ export const VideoWorkoutPage = () => {
       </Box>
 
       <Player counter={counter} />
-
     </>
   );
 };

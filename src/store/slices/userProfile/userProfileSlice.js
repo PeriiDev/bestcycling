@@ -35,4 +35,4 @@ export const userProfileSlice = createSlice({
 
 
 // Action creators are generated for each case reducer function
-export const { startLoadingUserProfile, setUserProfile, setCheckedWorkout, setNextWorkout } = userProfileSlice.actions;
+export const { startLoadingUserProfile, setUserProfile, setCheckedWorkout, setNextWorkout, setClearCheckedWorkout } = userProfileSlice.actions;

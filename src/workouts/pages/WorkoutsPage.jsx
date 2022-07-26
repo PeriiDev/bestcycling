@@ -2,11 +2,15 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Typography, Grid, Checkbox } from "@mui/material";
 import { Box } from "@mui/system";
-import LensIcon from "@mui/icons-material/Lens";
 
 import { getInstructorById } from "../../profile";
 import { getWorksoutDay } from "../helpers";
-import { BorderTriangle, WorkoutCompleteIcon, PlayerButton } from "../components";
+import {
+  BorderTriangle,
+  WorkoutCompleteIcon,
+  PlayerButton,
+  LevelWorkout,
+} from "../components";
 import { setCheckedWorkout } from "../../store/slices/userProfile";
 
 export const WorkoutsPage = () => {
@@ -67,7 +71,7 @@ export const WorkoutsPage = () => {
                     value={workout.checked}
                     onChange={() => onSelectWorkout(index)}
                     style={{ fill: "white", color: "#FF7900" }}
-                  ></Checkbox>
+                  />
 
                   <Box sx={{ display: "flex", flexDirection: "column" }}>
                     <Typography sx={{ fontFamily: "Heavy", fontSize: 26 }}>
@@ -99,24 +103,8 @@ export const WorkoutsPage = () => {
                     paddingTop: 1,
                   }}
                 >
-                  <Typography sx={{ fontFamily: "Light" }}>
-                    Nivel
-                    <LensIcon
-                      sx={{ fontSize: 10, paddingLeft: 1, paddingRight: 0.35 }}
-                    />
-                    <LensIcon
-                      color={workout.level >= 2 ? "" : "disabled"}
-                      sx={{
-                        fontSize: 10,
-                        paddingLeft: 0.5,
-                        paddingRight: 0.35,
-                      }}
-                    />
-                    <LensIcon
-                      color={workout.level >= 3 ? "" : "disabled"}
-                      sx={{ fontSize: 10, paddingLeft: 0.5, paddingRight: 0 }}
-                    />
-                  </Typography>
+                  <LevelWorkout level={workout.level} />
+
                   <Typography sx={{ fontFamily: "Light" }}>{day}</Typography>
                   <Typography sx={{ fontFamily: "Light" }}>
                     Duración {duration}'
